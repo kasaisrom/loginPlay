@@ -1,20 +1,16 @@
-import java.util.List;
-import java.util.Map;
+import play.*;
+import play.libs.*;
 
-import models.User;
-import play.Application;
-import play.GlobalSettings;
-import play.libs.Yaml;
+import java.util.*;
 
-import com.avaje.ebean.Ebean;
+import com.avaje.ebean.*;
+
+import models.*;
 
 public class Global extends GlobalSettings {
 
-	@Override
 	public void onStart(Application app) {
-		super.onStart(app);
 		InitialData.insert(app);
-
 	}
 
 	static class InitialData {

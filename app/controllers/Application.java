@@ -21,12 +21,19 @@ public class Application extends Controller {
 		Form<Login> loginForm = Form.form(Login.class).bindFromRequest();
 		if(loginForm.hasErrors()){
 			return badRequest(login.render(loginForm));
-			
 		}else{
 			session().clear();
 			session("email", loginForm.get().email);
 			return redirect(routes.Application.index());
 		}
+	}
+	
+	public static Result getUsers(){
+		return TODO;
+	}
+	
+	public static Result createUser(){
+		return TODO;
 	}
 
 	public static class Login {
@@ -34,8 +41,9 @@ public class Application extends Controller {
 		public static String password;
 
 		public static String validate() {
-			if (User.authenticate(email, password) == null)
+			if (User.authenticate(email, password) == null){
 				return "Login Failed";
+			}
 			return null;
 		}
 	}
