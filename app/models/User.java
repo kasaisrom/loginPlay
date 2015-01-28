@@ -1,23 +1,31 @@
 package models;
 
-import play.data.validation.Constraints.Required;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import play.db.ebean.Model;
 
-public class User extends Model{
-	static String usr = "admin";
-	
-	@Required
-	public String label;
-	
-	public User(){
-		
+@Entity
+public class User extends Model {
+
+	@Id
+	public String email;
+	public String name;
+	public String password;
+
+	public User(String name, String password, String email) {
+		super();
+		this.name = name;
+		this.password = password;
+		this.email = email;
 	}
-	
-	public static void chkUser(){
-		
+
+	public static Finder<String, User> find = new Finder<String, User>(
+			String.class, User.class);
+
+	public static User authenticate(String email, String passwd) {
+		return find.where().eq("email", email).eq("password", passwd)
+				.findUnique();
 	}
-	
-	public static void createUser(User usr){
-		
-	}
+
 }
