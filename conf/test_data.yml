@@ -1,0 +1,5 @@
+ users:
+ - !!models.User
+ name:Sulya
+ password:abc123
+ email:sulya@gmail.com 

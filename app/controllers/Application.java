@@ -9,13 +9,34 @@ import views.html.*;
 
 public class Application extends Controller {
 
-	//static Form<User> loginForm = Form.form(User.class);
-
 	public static Result index() {
 		return ok(index.render(" to Play Test"));
 	}
 
-	/*public static Result login() {
-		return ok(login.render());
-	}*/
+	public static Result login() {
+		return ok(login.render(Form.form(Login.class)));
+	}
+
+	public static Result authenticate() {
+		Form<Login> loginForm = Form.form(Login.class).bindFromRequest();
+		if(loginForm.hasErrors()){
+			return badRequest(login.render(loginForm));
+			
+		}else{
+			session().clear();
+			session("email", loginForm.get().email);
+			return redirect(routes.Application.index());
+		}
+	}
+
+	public static class Login {
+		public static String email;
+		public static String password;
+
+		public static String validate() {
+			if (User.authenticate(email, password) == null)
+				return "Login Failed";
+			return null;
+		}
+	}
 }
